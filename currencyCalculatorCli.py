@@ -8,6 +8,8 @@ Währungsrechner mit Kommandozeilen-Oberfläche.
 """
 
 import sys
+# readline provides history and autocompletion with input()
+import readline
 
 
 def currency_calculator():
@@ -64,5 +66,6 @@ if __name__ == "__main__":
                "USD": 0.751540658,
                "YEN": 0.00774763265}
 
-    currency_calculator()
+    while True:
+        currency_calculator()
 
