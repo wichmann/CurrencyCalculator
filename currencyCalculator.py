@@ -4,6 +4,10 @@
 """
 Währungsrechner mit grafischer Benutzeroberfläche.
 
+TODO
+ - Datentyp decimal für Währungen nutzen
+ - 
+
 @author: Christian Wichmann
 """
 
@@ -67,7 +71,7 @@ class CurrencyCalculator(QtGui.QMainWindow):
         try:
             # Umwandlung der Zeichenkette in eine Zahl
             input_value = float(self.input_source.text())
-            output_value = str(input_value * self.calculateFactor())
+            output_value = '%.2f' % (input_value * self.calculateFactor())
             self.input_destination.setText(output_value)
         except ValueError:
             # bei einem Fehler gibt '0.00' als Zahl aus
