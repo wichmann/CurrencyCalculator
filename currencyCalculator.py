@@ -4,50 +4,45 @@
 """
 Währungsrechner mit grafischer Benutzeroberfläche.
 
-TODO
- - Datentyp decimal für Währungen nutzen
- - 
-
 @author: Christian Wichmann
 """
 
-from PyQt4 import QtGui, uic
-import sys
+from PyQt5 import QtWidgets
 
 
-class CurrencyCalculator(QtGui.QMainWindow):  
+class CurrencyCalculator(QtWidgets.QMainWindow):  
     """Hauptfenster für Währungsrechner"""
 
     def __init__(self):
         """Initialisierung von Hauptfenster"""
-        QtGui.QMainWindow.__init__(self)
-        self.contentWidget = QtGui.QWidget()
-        self.titleLabel = QtGui.QLabel(APP_NAME)
+        QtWidgets.QMainWindow.__init__(self)
+        self.contentWidget = QtWidgets.QWidget()
+        self.titleLabel = QtWidgets.QLabel(APP_NAME)
 
         ### Widgets für Ursprungswährung
-        self.label_source = QtGui.QLabel("Ursprungswährung")
-        self.input_source = QtGui.QLineEdit()
+        self.label_source = QtWidgets.QLabel("Ursprungswährung")
+        self.input_source = QtWidgets.QLineEdit()
         self.input_source.setToolTip("Betrag in Ursprungswährung")
         self.input_source.textEdited.connect(self.handle_input_change)
-        self.currency_source = QtGui.QComboBox(self)
+        self.currency_source = QtWidgets.QComboBox(self)
         self.currency_source.addItems(currencies)
         self.currency_source.currentIndexChanged.connect(self.handle_input_change)
 
         ### Widgets für Zielwährung
-        self.label_destination = QtGui.QLabel("Zielwährung")
-        self.input_destination = QtGui.QLabel(EMPTY_VALUE)
+        self.label_destination = QtWidgets.QLabel("Zielwährung")
+        self.input_destination = QtWidgets.QLabel(EMPTY_VALUE)
         self.input_destination.setToolTip("Betrag in Zielwährung")
-        self.currency_destination = QtGui.QComboBox(self)
+        self.currency_destination = QtWidgets.QComboBox(self)
         self.currency_destination.addItems(currencies)
         self.currency_destination.currentIndexChanged.connect(self.handle_input_change)
 
         ### Button
-        self.quit_button = QtGui.QPushButton("Beenden")
+        self.quit_button = QtWidgets.QPushButton("Beenden")
         self.quit_button.setToolTip("Währungsrechner beenden")
         self.quit_button.clicked.connect(self.handle_quit)
 
         ### Layout setzen
-        layout = QtGui.QGridLayout()
+        layout = QtWidgets.QGridLayout()
         layout.addWidget(self.titleLabel, 0, 1)
         layout.addWidget(self.label_source, 1, 0)
         layout.addWidget(self.input_source, 1, 1)
@@ -90,13 +85,11 @@ class CurrencyCalculator(QtGui.QMainWindow):
 
     def handle_wrong_number_format(self):
         """Zeigt eine Infobox bei Eingabe einer ungültigen Zahl"""
-        reply = QtGui.QMessageBox.information(self, "Fehler",
-            "Ungültige Zahl eingegeben!", QtGui.QMessageBox.Ok,
-            QtGui.QMessageBox.Ok)
+        reply = QtWidgets.QMessageBox.information(self, "Fehler", "Ungültige Zahl eingegeben!",
+                                                  QtWidgets.QMessageBox.Ok, QtWidgets.QMessageBox.Ok)
 
 
 if __name__ == "__main__":
-    
     APP_NAME = "Währungsrechner"
     EMPTY_VALUE = "0.00"
     
@@ -106,9 +99,9 @@ if __name__ == "__main__":
                "USD": 0.751540658,
                "YEN": 0.00774763265}
 
-    app = QtGui.QApplication(sys.argv)
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
     main_window = CurrencyCalculator()  
     main_window.show()
-
     sys.exit(app.exec_())
 
